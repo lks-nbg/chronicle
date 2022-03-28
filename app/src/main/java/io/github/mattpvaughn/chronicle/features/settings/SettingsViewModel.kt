@@ -485,6 +485,13 @@ class SettingsViewModel(
                     }
                 }),
             PreferenceModel(
+                type = PreferenceType.BOOLEAN,
+                title = FormattableString.from(R.string.settings_progressbar_scope_chapter),
+                explanation = FormattableString.from(R.string.settings_progressbar_scope_chapter_explanation),
+                key = PrefsRepo.KEY_PROGRESSBAR_SCOPE_CHAPTER,
+                defaultValue = prefsRepo.progressBarScopeChapter
+            ),
+            PreferenceModel(
                 PreferenceType.TITLE,
                 FormattableString.from(R.string.settings_category_account)
             ),

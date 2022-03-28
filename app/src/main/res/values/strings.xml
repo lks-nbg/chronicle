@@ -260,6 +260,8 @@
     <string name="settings_jump_30_seconds">30 seconds</string>
     <string name="settings_jump_60_seconds">60 seconds</string>
     <string name="settings_jump_90_seconds">90 seconds</string>
+    <string name="settings_progressbar_scope_chapter">Progress bar</string>
+    <string name="settings_progressbar_scope_chapter_explanation">The progress bar should show the position in the current chapter/track and not in the whole audiobook.</string>
 
     <!-- Android Auto -->
     <string name="allow_auto">Enable Android Auto</string>

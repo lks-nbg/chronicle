@@ -17,6 +17,7 @@
     <color name="imagePlaceholderColor">#33B998CC</color>
     <color name="progressTrackTintColor">#AABBBBBB</color>
     <color name="progressTintColor">@color/colorAccent</color>
+    <color name="progressThumbHalo">#3D00B8D4</color>
 
     <!-- For bottom sheet chooser -->
     <color name="bottomSheetOverlayColor">#44000000</color>

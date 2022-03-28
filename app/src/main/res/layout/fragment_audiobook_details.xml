@@ -74,7 +74,7 @@
                         tools:src="@drawable/example_cover" />
 
                     <TextView
-                        android:id="@+id/progress"
+                        android:id="@+id/progress_audiobook"
                         style="@style/TextAppearance.Body2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -146,7 +146,7 @@
                         android:layout_width="@dimen/details_play_button"
                         android:layout_height="@dimen/details_play_button"
                         app:layout_constraintRight_toLeftOf="@id/right_gutter"
-                        app:layout_constraintTop_toBottomOf="@id/progress">
+                        app:layout_constraintTop_toBottomOf="@id/progress_audiobook">
 
                         <ImageView
                             android:id="@+id/details_pause_play"

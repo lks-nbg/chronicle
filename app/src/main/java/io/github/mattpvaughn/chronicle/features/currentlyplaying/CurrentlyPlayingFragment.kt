@@ -89,7 +89,7 @@ class CurrentlyPlayingFragment : Fragment() {
             }
         })
 
-        binding.chapterProgressSeekbar.addOnSliderTouchListener(object : Slider.OnSliderTouchListener {
+        binding.progressSlider.addOnSliderTouchListener(object : Slider.OnSliderTouchListener {
             override fun onStartTrackingTouch(slider: Slider) {
                 viewModel.isSliding = true
             }
@@ -100,7 +100,7 @@ class CurrentlyPlayingFragment : Fragment() {
             }
         })
 
-        binding.chapterProgressSeekbar.setLabelFormatter { value: Float ->
+        binding.progressSlider.setLabelFormatter { value: Float ->
             DateUtils.formatElapsedTime(
                 StringBuilder(),
                 value.toLong() / 1000

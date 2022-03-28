@@ -154,7 +154,7 @@
                         app:tint="@{viewModel.isSleepTimerActive() ? @color/iconActive : @color/icon}" />
 
                     <com.google.android.material.slider.Slider
-                        android:id="@+id/chapter_progress_seekbar"
+                        android:id="@+id/progress_slider"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/margin_normal"
@@ -165,7 +165,7 @@
                         app:labelStyle="@style/ProgressSliderTooltip"
                         app:layout_constraintLeft_toLeftOf="@id/left_gutter"
                         app:layout_constraintRight_toRightOf="@id/right_gutter"
-                        app:layout_constraintTop_toBottomOf="@id/progress"
+                        app:layout_constraintTop_toBottomOf="@id/progress_audiobook"
                         app:thumbColor="@color/progressTintColor"
                         app:thumbRadius="8dp"
                         app:trackColorActive="@color/progressTintColor"
@@ -173,7 +173,7 @@
                         app:trackHeight="3dp" />
 
                     <TextView
-                        android:id="@+id/progress"
+                        android:id="@+id/progress_audiobook"
                         style="@style/TextAppearance.Body2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -184,23 +184,23 @@
                         tools:text="1:21/3:52" />
 
                     <TextView
-                        android:id="@+id/chapter_progress"
+                        android:id="@+id/progress_position"
                         style="@style/TextAppearance.Body2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.chapterProgressString.isEmpty() ? viewModel.trackProgress : viewModel.chapterProgressString}"
-                        app:layout_constraintLeft_toLeftOf="@id/chapter_progress_seekbar"
-                        app:layout_constraintTop_toBottomOf="@id/chapter_progress_seekbar"
+                        android:text="@{viewModel.isProgressBarScopeChapter == false ? viewModel.bookProgressString : viewModel.chapterProgressString.isEmpty() ? viewModel.trackProgress : viewModel.chapterProgressString}"
+                        app:layout_constraintLeft_toLeftOf="@id/progress_slider"
+                        app:layout_constraintTop_toBottomOf="@id/progress_slider"
                         tools:text="0:01" />
 
                     <TextView
-                        android:id="@+id/chapter_duration"
+                        android:id="@+id/progress_duration_remaining"
                         style="@style/TextAppearance.Body2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.chapterDuration == 0L ? viewModel.trackDuration : viewModel.chapterDurationString}"
-                        app:layout_constraintRight_toRightOf="@id/chapter_progress_seekbar"
-                        app:layout_constraintTop_toBottomOf="@id/chapter_progress_seekbar"
+                        android:text="@{viewModel.progressBarDurationRemaining}"
+                        app:layout_constraintRight_toRightOf="@id/progress_slider"
+                        app:layout_constraintTop_toBottomOf="@id/progress_slider"
                         tools:text="34:50" />
 
                     <TextView
@@ -214,7 +214,7 @@
                         android:textAlignment="center"
                         app:layout_constraintLeft_toLeftOf="@id/left_gutter"
                         app:layout_constraintRight_toRightOf="@id/right_gutter"
-                        app:layout_constraintTop_toBottomOf="@id/chapter_progress"
+                        app:layout_constraintTop_toBottomOf="@id/progress_position"
                         app:layout_goneMarginTop="@dimen/margin_normal"
                         tools:text="Book title but it's very long so it overflows past the edge of the screen" />
 

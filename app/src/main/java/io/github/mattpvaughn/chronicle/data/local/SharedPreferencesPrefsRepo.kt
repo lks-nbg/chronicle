@@ -19,6 +19,7 @@ import io.github.mattpvaughn.chronicle.data.local.PrefsRepo.Companion.KEY_PAUSE_
 import io.github.mattpvaughn.chronicle.data.local.PrefsRepo.Companion.KEY_PLAYBACK_SPEED
 import io.github.mattpvaughn.chronicle.data.local.PrefsRepo.Companion.KEY_PREMIUM_TOKEN
 import io.github.mattpvaughn.chronicle.data.local.PrefsRepo.Companion.KEY_PROGRESSBAR_SCOPE_CHAPTER
+import io.github.mattpvaughn.chronicle.data.local.PrefsRepo.Companion.KEY_PROGRESSBAR_SHOW_DURATION
 import io.github.mattpvaughn.chronicle.data.local.PrefsRepo.Companion.KEY_REFRESH_RATE
 import io.github.mattpvaughn.chronicle.data.local.PrefsRepo.Companion.KEY_JUMP_FORWARD_SECONDS
 import io.github.mattpvaughn.chronicle.data.local.PrefsRepo.Companion.KEY_JUMP_BACKWARD_SECONDS
@@ -70,6 +71,9 @@ interface PrefsRepo {
 
     /** Whether the progress bar should display the position in the current chapter or in the whole audiobook */
     val progressBarScopeChapter: Boolean
+
+    /** Whether the progress bar should display the duration or the remaining time */
+    val progressBarShowDuration: Boolean
 
     /** The last time the library was refreshed, as Unix timestamp (in millis) */
     var lastRefreshTimeStamp: Long
@@ -145,6 +149,7 @@ interface PrefsRepo {
         const val NO_PREMIUM_TOKEN = "no premium token"
         const val KEY_PREMIUM_TOKEN = "key_premium_token"
         const val KEY_PROGRESSBAR_SCOPE_CHAPTER = "key_progressbar_scope_chapter"
+        const val KEY_PROGRESSBAR_SHOW_DURATION = "key_progressbar_show_duration"
         const val KEY_BOOK_SORT_BY = "key_sort_by"
         const val KEY_IS_LIBRARY_SORT_DESCENDING = "key_is_sort_descending"
         const val KEY_HIDE_PLAYED_AUDIOBOOKS = "key_hide_played_audiobooks"
@@ -249,6 +254,12 @@ class SharedPreferencesPrefsRepo @Inject constructor(private val sharedPreferenc
     override var progressBarScopeChapter: Boolean
         get() = sharedPreferences.getBoolean(KEY_PROGRESSBAR_SCOPE_CHAPTER, defaultProgressBarScopeChapter)
         set(value) = sharedPreferences.edit().putBoolean(KEY_PROGRESSBAR_SCOPE_CHAPTER, value).apply()
+
+    private val defaultProgressBarShowDuration = true
+    override var progressBarShowDuration: Boolean
+        get() = sharedPreferences.getBoolean(KEY_PROGRESSBAR_SHOW_DURATION, defaultProgressBarShowDuration)
+        set(value) = sharedPreferences.edit().putBoolean(KEY_PROGRESSBAR_SHOW_DURATION, value).apply()
+
 
     private val defaultAllowAuto = true
     override var allowAuto: Boolean

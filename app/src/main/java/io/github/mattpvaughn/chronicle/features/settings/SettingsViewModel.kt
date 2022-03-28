@@ -492,6 +492,13 @@ class SettingsViewModel(
                 defaultValue = prefsRepo.progressBarScopeChapter
             ),
             PreferenceModel(
+                type = PreferenceType.BOOLEAN,
+                title = FormattableString.from(R.string.settings_progressbar_show_duration),
+                explanation = FormattableString.from(R.string.settings_progressbar_show_duration_explanation),
+                key = PrefsRepo.KEY_PROGRESSBAR_SHOW_DURATION,
+                defaultValue = prefsRepo.progressBarShowDuration
+            ),
+            PreferenceModel(
                 PreferenceType.TITLE,
                 FormattableString.from(R.string.settings_category_account)
             ),

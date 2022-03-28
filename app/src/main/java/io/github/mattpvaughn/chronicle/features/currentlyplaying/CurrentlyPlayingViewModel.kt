@@ -173,7 +173,54 @@ class CurrentlyPlayingViewModel(
         )
     }
 
+    /*
+     val trackDuration = Transformations.map(currentTrack) { track ->
+        return@map DateUtils.formatElapsedTime(StringBuilder(), track.duration / 1000)
+    }
+     */
+
+
+
+    val progressBarDurationRemaining = TripleLiveData(
+        currentChapter,
+        currentTrack,
+        audiobook
+    ) { chapter: Chapter?, track: MediaItemTrack?, audiobook: Audiobook? ->
+        var displayValue = 0L
+
+        if(!prefsRepo.progressBarScopeChapter) {
+            // progress of whole audiobook
+            if(prefsRepo.progressBarShowDuration) {
+                bookDurationString
+            } else {}
+
+        } else {
+            // progress of current chapter
+            if(prefsRepo.progressBarShowDuration) {
+                if (chapterDuration.value == 0L) displayValue = track?.duration ?: 0
+                else displayValue = chapterDuration.value ?: 0
+            } else {
+
+                val tempDuration = if (chapterDuration.value == 0L) track?.duration ?: 0
+                    else chapterDuration.value ?: 0
+                val tempProgress = chapterProgress.value ?: currentTrack.value?.progress ?: 0
+                displayValue = tempProgress - tempDuration
+            }
+        }
+        if (displayValue < 0) "- " + DateUtils.formatElapsedTime(StringBuilder(),displayValue * (- 1) / 1000)
+        else DateUtils.formatElapsedTime(StringBuilder(), displayValue / 1000)
+    }
+
+
+
+
+
+
     var isSliding = false
+
+    fun isProgressBarScopeChapter() : Boolean {
+        return prefsRepo.progressBarScopeChapter
+    }
 
     private var _isSleepTimerActive = MutableLiveData(false)
     val isSleepTimerActive: LiveData<Boolean>
@@ -193,9 +240,15 @@ class CurrentlyPlayingViewModel(
         )
     }
 
-    val trackDuration = Transformations.map(currentTrack) { track ->
-        return@map DateUtils.formatElapsedTime(StringBuilder(), track.duration / 1000)
+    val bookProgressForSlider = Transformations.map(tracks) {
+        return@map it.getProgress()
     }
+
+    // todo app may crash when bookDurationForSlider < bookProgressForSlider!
+    val bookDurationForSlider = Transformations.map(audiobook) {
+        return@map it?.duration ?: 0
+    }
+
 
     val bookProgressString = Transformations.map(tracks) {
         return@map DateUtils.formatElapsedTime(StringBuilder(), it.getProgress() / 1000)
@@ -204,6 +257,16 @@ class CurrentlyPlayingViewModel(
     val bookDurationString = Transformations.map(audiobook) {
         return@map DateUtils.formatElapsedTime(StringBuilder(), it?.duration?.div(1000) ?: 0)
     }
+
+    /*
+
+    android:value="@{(int) (viewModel.chapterProgressForSlider == -1L ? viewModel.trackProgressForSlider : viewModel.chapterProgressForSlider)}"
+    android:valueTo="@{(int) (viewModel.chapterDuration == 0L ? viewModel.currentTrack.duration : viewModel.chapterDuration ) }"
+
+    Audiobook:          android:text="@{viewModel.bookProgressString + '/' + viewModel.bookDurationString}"
+    Chapter Position:   android:text="@{viewModel.chapterProgressString.isEmpty() ? viewModel.trackProgress : viewModel.chapterProgressString}"
+    Chapter Duration:   android:text="@{viewModel.chapterDuration == 0L ? viewModel.trackDuration : viewModel.chapterDurationString}"
+    */
 
     private val cachedChapter = DoubleLiveData(
         chapters,
